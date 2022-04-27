@@ -50,7 +50,7 @@ If not then click "source" button and "downn load zip"
 
 ## Execute BackgroundMaker
 
-Excute BackgroundMaker.exe Explorer etc or 
+Excute BackgroundMaker.exe by Explorer etc or 
 Excute from made shortcut of BackgroundMaker.exe.
 
 # License
