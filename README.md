@@ -44,6 +44,14 @@ Linux and Mac is not able to build.
 If your environment is to work "git" then
 below command is work. 
 
-git clone https://github.com/GouNakano/BackgroundMaker.git
+git clone https://github.com/GouNakano/BackgroundMaker.git  
 
-If not then 
+If not then click "source" button and "downn load zip"
+
+## Execute BackgroundMaker
+
+Excute BackgroundMaker.exe Explorer etc or 
+Excute from made shortcut of BackgroundMaker.exe.
+
+# License
+The source code is licensed MIT. The website content is licensed CC BY 4.0,see LICENSE.
