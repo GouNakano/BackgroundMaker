@@ -22,3 +22,13 @@ Tow pattern example images are raw images and used BackgroundMaker images.
 
 ![kyouto](https://user-images.githubusercontent.com/56259253/165475461-c3c32b18-8426-43d5-849c-91a108f8be53.png)
 
+## Operating environment
+
+### OS  
+Windows 10 (Windows 8 and 7 seems to be work. However it is not tested.)
+
+(Linux and Mac is not supported)
+
+## Required software  
+ffmpeg.exe for windows is required.  
+PATH of environment variable have to be set for ffmpeg.exe.
