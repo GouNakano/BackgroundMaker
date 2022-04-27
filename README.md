@@ -48,7 +48,7 @@ git clone https://github.com/GouNakano/BackgroundMaker.git
 
 If not then click "source" button and "downn load zip"
 
-## Execute BackgroundMaker
+## How to Execute BackgroundMaker
 
 Excute BackgroundMaker.exe by Explorer etc or 
 Excute from made shortcut of BackgroundMaker.exe.
