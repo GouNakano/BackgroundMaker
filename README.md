@@ -32,3 +32,16 @@ Windows 10 (Windows 8 and 7 seems to be work. However it is not tested.)
 ## Required software  
 ffmpeg.exe for windows is required.  
 PATH of environment variable have to be set for ffmpeg.exe.
+
+## How to build  
+BackgroundMaker is built by C++Builder 10.3 (Comminity) in Windows.  
+Therefor, Building of BackgroundMaker need C++Builder 10.3 or higher version.
+
+Linux and Mac is not able to build.
+
+### Download of repository
+
+If your environment is to work "git" then
+below command is work. 
+
+git clone 
