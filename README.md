@@ -44,4 +44,6 @@ Linux and Mac is not able to build.
 If your environment is to work "git" then
 below command is work. 
 
-git clone 
+git clone https://github.com/GouNakano/BackgroundMaker.git
+
+If not then 
