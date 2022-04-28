@@ -30,7 +30,7 @@ Windows 10 (Windows 8 and 7 seems to be work. However it is not tested.)
 (Linux and Mac is not supported)
 
 ## Required software  
-ffmpeg.exe for windows is required.  
+ffmpeg.exe for windows is required.(ffmpeg is free sofuware)  
 PATH of environment variable have to be set for ffmpeg.exe.
 
 ## How to build  
