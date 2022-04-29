@@ -55,3 +55,6 @@ Excute from made shortcut of BackgroundMaker.exe.
 
 # License
 The source code is licensed MIT. The website content is licensed CC BY 4.0,see LICENSE.
+
+
+![BackgroundMaker_Window](https://user-images.githubusercontent.com/56259253/165922567-6e286b0f-ca6c-45cd-aac2-f39cdbeec1b8.png)
