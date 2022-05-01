@@ -71,7 +71,10 @@ Excute from made shortcut of BackgroundMaker.exe.
 
 ![7](https://user-images.githubusercontent.com/56259253/166138318-1e24e246-2975-48b1-bfe1-8ca6e5b6d838.png)
 
-8. Click "Extract Background" button.
+8. Click "Extract Background" button.  
+
+![8](https://user-images.githubusercontent.com/56259253/166138427-8c2675a6-8c68-423e-99bf-087cb3a24168.png)
+
 9. It is starting to make background image.
 10. Click "Save Background Image"
 11. Specify file name and then "Save" or "保存" button click.
