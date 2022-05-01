@@ -80,8 +80,9 @@ Excute from made shortcut of BackgroundMaker.exe.
 ![9](https://user-images.githubusercontent.com/56259253/166138483-1eda9a57-45d3-4f3d-8ce6-35f024c69fb6.png)
 
 10. Click "Save Background Image"
-11. Specify file name and then "Save" or "保存" button click.
+11. Specify file name and then "Save" or "保存" button click.  
 
+![10](https://user-images.githubusercontent.com/56259253/166138660-3091fee8-ec9c-41a4-bac6-3c883bcb7835.png)
 
 # License
 The source code is licensed MIT. The website content is licensed CC BY 4.0,see LICENSE.
