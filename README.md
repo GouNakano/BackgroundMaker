@@ -53,6 +53,24 @@ If not then click "source" button and "downn load zip"
 Excute BackgroundMaker.exe by Explorer etc or 
 Excute from made shortcut of BackgroundMaker.exe.
 
+## How to Use BackgroundMaker(tutorial)
+
+1. FFmpeg for windows has already set up.
+2. Download bin/BackgroundMaker.exe.
+3. Download sample/sample(n).mp4
+4. Execute BackgroundMaker.exe.
+
+
+
+5. Click "Read Movie File" button.
+6. Specify the movie file downloaded in 2 and load it. 
+7. Click "Start" button.
+8. Click "Extract Background" button.
+9. It is starting to make background image.
+10. Click "Save Background Image"
+11. Specify file name and then "Save" or "保存" button click.
+
+
 # License
 The source code is licensed MIT. The website content is licensed CC BY 4.0,see LICENSE.
 
