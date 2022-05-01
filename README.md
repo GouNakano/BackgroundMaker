@@ -6,7 +6,7 @@ BackgroundMaker is to delete moving objects as forground objects and
 deleted range is filled baqckground image.  
 Baqckground image area is where there is no moving area.
 
-Tow pattern example images are raw images and used BackgroundMaker images.
+Two pattern example images are raw images and used BackgroundMaker images.
 
 (before1)  
 ![image0013](https://user-images.githubusercontent.com/56259253/165471273-f7191527-1a99-44cf-a093-5913be7b8cd7.png)
