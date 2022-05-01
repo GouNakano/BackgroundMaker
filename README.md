@@ -62,8 +62,11 @@ Excute from made shortcut of BackgroundMaker.exe.
 
 ![5](https://user-images.githubusercontent.com/56259253/166137969-0b16ae6e-8185-4aa3-b68e-d931e0f94532.png)
 
-5. Click "Read Movie File" button.
-6. Specify the movie file downloaded in 2 and load it. 
+5. Click "Read Movie File" button and then "open" or "開く" button click.   
+6. Specify the movie file downloaded in 2 and load it.   
+
+![6](https://user-images.githubusercontent.com/56259253/166138127-23b57a8d-83b8-46b2-b8d4-295a064dcec1.png)
+
 7. Click "Start" button.
 8. Click "Extract Background" button.
 9. It is starting to make background image.
