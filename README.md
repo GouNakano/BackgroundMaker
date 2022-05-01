@@ -60,7 +60,7 @@ Excute from made shortcut of BackgroundMaker.exe.
 3. Download sample/sample(n).mp4
 4. Execute BackgroundMaker.exe.
 
-
+![5](https://user-images.githubusercontent.com/56259253/166137969-0b16ae6e-8185-4aa3-b68e-d931e0f94532.png)
 
 5. Click "Read Movie File" button.
 6. Specify the movie file downloaded in 2 and load it. 
