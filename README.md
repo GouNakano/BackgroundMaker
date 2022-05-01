@@ -53,6 +53,37 @@ If not then click "source" button and "downn load zip"
 Excute BackgroundMaker.exe by Explorer etc or 
 Excute from made shortcut of BackgroundMaker.exe.
 
+## How to Use BackgroundMaker(tutorial)
+
+1. FFmpeg for windows has already set up.
+2. Download bin/BackgroundMaker.exe.
+3. Download sample/sample(n).mp4
+4. Execute BackgroundMaker.exe.
+
+![5](https://user-images.githubusercontent.com/56259253/166137969-0b16ae6e-8185-4aa3-b68e-d931e0f94532.png)
+
+5. Click "Read Movie File" button and then "open" or "開く" button click.   
+6. Specify the movie file downloaded in 2 and load it.   
+
+![6](https://user-images.githubusercontent.com/56259253/166138127-23b57a8d-83b8-46b2-b8d4-295a064dcec1.png)
+
+7. Click "Start" button.  
+
+![7](https://user-images.githubusercontent.com/56259253/166138318-1e24e246-2975-48b1-bfe1-8ca6e5b6d838.png)
+
+8. Click "Extract Background" button.  
+
+![8](https://user-images.githubusercontent.com/56259253/166138427-8c2675a6-8c68-423e-99bf-087cb3a24168.png)
+
+9. It is starting to make background image.  
+
+![9](https://user-images.githubusercontent.com/56259253/166138483-1eda9a57-45d3-4f3d-8ce6-35f024c69fb6.png)
+
+10. Click "Save Background Image"
+11. Specify file name and then "Save" or "保存" button click.  
+
+![10](https://user-images.githubusercontent.com/56259253/166138660-3091fee8-ec9c-41a4-bac6-3c883bcb7835.png)
+
 # License
 The source code is licensed MIT. The website content is licensed CC BY 4.0,see LICENSE.
 
