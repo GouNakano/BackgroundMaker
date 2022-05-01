@@ -75,7 +75,10 @@ Excute from made shortcut of BackgroundMaker.exe.
 
 ![8](https://user-images.githubusercontent.com/56259253/166138427-8c2675a6-8c68-423e-99bf-087cb3a24168.png)
 
-9. It is starting to make background image.
+9. It is starting to make background image.  
+
+![9](https://user-images.githubusercontent.com/56259253/166138483-1eda9a57-45d3-4f3d-8ce6-35f024c69fb6.png)
+
 10. Click "Save Background Image"
 11. Specify file name and then "Save" or "保存" button click.
 
