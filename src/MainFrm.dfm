@@ -23,14 +23,17 @@ object MainForm: TMainForm
     Left = 0
     Top = 41
     Width = 1048
-    Height = 475
+    Height = 455
     Align = alClient
     BevelOuter = bvLowered
     ParentBackground = False
     TabOrder = 1
+    ExplicitLeft = 32
+    ExplicitTop = 8
+    ExplicitHeight = 463
     object Label2: TLabel
       Left = 13
-      Top = 30
+      Top = 33
       Width = 499
       Height = 19
       Alignment = taCenter
@@ -45,7 +48,7 @@ object MainForm: TMainForm
     end
     object Label3: TLabel
       Left = 518
-      Top = 30
+      Top = 38
       Width = 517
       Height = 19
       Alignment = taCenter
@@ -191,6 +194,31 @@ object MainForm: TMainForm
       ParentFont = False
       TabOrder = 4
       OnClick = QuitBtnClick
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 496
+    Width = 1048
+    Height = 20
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 3
+    object Label4: TLabel
+      Left = 843
+      Top = 0
+      Width = 205
+      Height = 20
+      Align = alRight
+      AutoSize = False
+      Caption = 'Copyright'#169' 2022 Gou Nakano.'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ExplicitLeft = 834
     end
   end
   object OpenDialog: TOpenDialog

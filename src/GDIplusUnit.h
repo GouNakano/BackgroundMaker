@@ -34,63 +34,60 @@ private:
 	Gdiplus::SolidBrush *GetSolidBrush(bool UsePenColor = false);
 	Gdiplus::Font       *GetFont();
 public:
-	//コンストラクタ
 	GDIPulsUnit();
 private:
 	void SetStartArrow(bool ar);
 	void SetCenterArrow(bool ar);
 	void SetEndArrow(bool ar);
 public:
-	//３点から円を作成する
+	//Draw circle from 3 points
 	static double calcCircleOf2Point(double x1, double y1, double x2, double y2, double x3, double y3, double *cx, double *cy, double *r);
-	//角度を得る(0-360)
+	//Get Angle(0-360)
 	static double GetAngle(double cx, double cy, double x, double y);
 public:
-	//GDI+開始
+	//GDI+ start
 	bool Startup();
-	//GDI+終了
+	//GDI+ end
 	bool Shutdown();
-	//描画開始
+	//disolay start
 	bool Begin(TCanvas *pc,bool isAlpha,int alphaVal,bool isStrAlpha = false,int strAlphaVal = 0);
-//	bool Begin(TCanvas *pc,bool isAlpha,int alphaVal);
-//	bool Begin(TCanvas *pc,bool isAlpha=false,int alphaVal=0);
-	//描画終了
+	//disolay end
 	bool End();
-	//アンチエイリアスを有効にする
+	//Enable antialiasing
 	bool AntiAlias();
-	//Graphicsオブジェクト取得
+	//Get Graphics object
 	Gdiplus::Graphics& getGraphics();
-	//開始位置の設定
+	//start position
 	bool MoveTo(int x1,int y1);
-	//線を描く
+	//Draw line
 	bool LineTo(int x1,int y1,int x2,int y2);
-	//線を描く(終点だけ設定)
+	//Draw line 2
 	bool LineTo(int x2,int y2);
-	//円弧を描く(３点設定)
+	//Draw circle
 	bool Arc(int x1,int y1,int x2,int y2,int x3,int y3,bool& cw,double& sangle,double& eangle);
-	//円弧を描く2
+	//Draw circle 2
 	bool Arc2(int w,int h,bool cw,double sangle,double eangle);
-	//光子円弧を描く(３点設定)
+	//Draw circle 3
 	bool PhotonArc(int x1,int y1,int x2,int y2,int x3,int y3);
-	//グルーオン円弧を描く(３点設定)
+	//Draw circle 4
 	bool GluonArc(int x1,int y1,int x2,int y2,int x3,int y3);
-	//グルーオンベジェ曲線描画(４点設定)
+	//Bezier curve drawing (4 points setting)
 	bool GluonBezier(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
-	//円を描く
+	//Draw circle
 	bool Circle(int cx,int cy,int r);
-	//円を描く(四角形指定)
+	//Draw circle 2
 	bool Ellipse(int x1,int y1,int x2,int y2);
-	//ベジェ曲線描画(４点設定)
+	//Bezier curve drawing 2(4 points setting)
 	bool Bezier(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
-	//四角を描く(四角形指定)
+	//Draw rectangle
 	bool Box(int x1,int y1,int x2,int y2);
-	//塗りつぶした四角を描く(四角形指定)
+	//Draw rectangle 2
 	bool FillBox(int x1,int y1,int x2,int y2);
-	//枠線付きの塗りつぶした四角を描く(四角形指定)
+	//Draw rectangle 3
 	bool FillBoxAndRectAngle(int x1,int y1,int x2,int y2);
-	//文字列の幅と高さを得る
+	//Draw rectangle 4
 	bool GetTextSize(String txt,int& width,int& height);
-	//テキストの描画
+	//Draw text
 	bool TextOut(String txt,int x,int y);
 
 public:
@@ -101,7 +98,6 @@ public:
 	__property bool   StartArrow         = {read = FStartArrow        ,write = SetStartArrow};
 	__property bool   CenterArrow        = {read = FCenterArrow       ,write = SetCenterArrow};
 	__property bool   EndArrow           = {read = FEndArrow          ,write = SetEndArrow};
-
 };
 
 

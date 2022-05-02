@@ -8,7 +8,6 @@
 #include <tuple>
 #include <string>
 
-#include "nsDebug.h"
 #include "nsSearchDir.h"
 #include "Background.h"
 
@@ -49,30 +48,27 @@ bool TBackGround::GetBackgroundImage(DIBInf& BakInf)
 	return true;
 }
 //---------------------------------------------------------------------------
-//初期化する
+//initialize
 //---------------------------------------------------------------------------
 bool TBackGround::Init()
 {
-	//背景抽出処理のフレームを巻き戻す
 	RewindFrame();
 
 	return true;
 }
 
 //---------------------------------------------------------------------------
-//結果のDIBエリア初期化
+//Result DIB area initialization
 //---------------------------------------------------------------------------
 bool TBackGround::ClearResultDIB()
 {
 	int BmpHeight = pDiffBmp.GetHeight();
 	int BmpWidth  = pDiffBmp.GetWidth();
 
-	//結果のDIBエリア初期化
 	for(int y=0; y<BmpHeight;y++)
 	{
 		for(int x=0;x < BmpWidth;x++)
 		{
-			//差分用ビットマップのピクセル色セット
 			PixRGB *px = pDiffBmp._RGB(x,y);
 
 			px->R = RT;
@@ -86,75 +82,40 @@ bool TBackGround::ClearResultDIB()
 }
 
 //-------------------------------------------------------------
-//  機能     ：背景抽出処理のフレームを巻き戻す
-//
-//  関数定義 ：bool RewindFrame()
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：true 成功
-//
-//
-//
-//  改定者   ：
+//Rewind the frame of the background extraction process
 //-------------------------------------------------------------
 bool TBackGround::RewindFrame()
 {
-	//結果DIB初期化
 	ClearResultDIB();
-	//画像が決定したブロッククリア
 	DeciedBlocks.clear();
-	//画像が補完されたブロッククリア
 	CompBlocks.clear();
-	//標準偏差、平均の許容マップクリア
 	AllowMap.clear();
 
 	return true;
 }
 //-------------------------------------------------------------
-//  機能     ：指定フレームのビットマップを返す
-//
-//  関数定義 ：TBitmap* GetFrame(int fr)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：true 成功
-//
-//
-//
-//  改定者   ：
+//Returns a bitmap of the specified frame
 //-------------------------------------------------------------
 DIBInf TBackGround::GetFrame(int fr)
 {
 	String path;
-	//DIBInf作成
 	DIBInf inf;
 
 	try
 	{
-		//ファイルパス作成
 		path.sprintf(IMAGEPATH.c_str(),ImageolderPath.c_str(),fr);
-		//ファイルの存在をチェック
 		if(FileExists(path) == false)
 		{
-			throw Exception(L"フレーム番号不正");
+			throw Exception(L"Illegal frame number");
 		}
-		//ファイルを読み込む
 		inf.LoadFromFile(path);
 
-		//DIB作成
 		inf.ConvToDIB();
-		//pDiffBmpが初期化されていない場合
 		int w = pDiffBmp.GetWidth();
 		int h = pDiffBmp.GetHeight();
 
 		if(w == 0 || h == 0)
 		{
-			//結果DIB初期化
 			pDiffBmp = inf;
 			ClearResultDIB();
 		}
@@ -168,27 +129,13 @@ DIBInf TBackGround::GetFrame(int fr)
 }
 
 //-------------------------------------------------------------
-//  機能     ：フレームの存在をチェック
-//
-//  関数定義 ：bool CheckFrameNumber(int fr)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：true フレームはある
-//
-//
-//
-//  改定者   ：
+//Check for the existence of frames
 //-------------------------------------------------------------
 bool TBackGround::CheckFrameNumber(int fr)
 {
 	String path;
 
-	//ファイルパス作成
 	path.sprintf(IMAGEPATH.c_str(),ImageolderPath.c_str(),fr);
-	//ファイルの存在をチェック
 	if(FileExists(path) == false)
 	{
 		return false;
@@ -197,7 +144,7 @@ bool TBackGround::CheckFrameNumber(int fr)
 	return true;
 }
 //-------------------------------------------------------------
-//画像の格納ディレクトリセット
+//Image storage directory set
 //-------------------------------------------------------------
 bool TBackGround::SetImaageDir(String path)
 {
@@ -207,19 +154,7 @@ bool TBackGround::SetImaageDir(String path)
 }
 
 //-------------------------------------------------------------
-//  機能     ：背景抽出処理を１ステップ進める
-//
-//  関数定義 ：bool ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：true 成功
-//
-//
-//
-//  改定者   ：
+//Advance the background extraction process by one step
 //-------------------------------------------------------------
 bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 {
@@ -237,28 +172,25 @@ bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 
 	int BmpHeight = BinInf.GetHeight();
 	int BmpWidth  = BinInf.GetWidth();
-	//透明色の設定
+
 	TTransparentMode TransMode  = tmFixed;
 	pDiffBmp.SetTransparentColor(TransColor);
 
-	//データをコピー
 	TColor dc;
 	unsigned char *pdc = reinterpret_cast<unsigned char *>(&dc);
 
 	unsigned char R1,G1,B1;
 	unsigned char RR,GR,BR;
 
-	//ブロックごとの動の有無をセット
 	int    blkh;
 	int    blkw;
 	DIBInf Inf8;
-	//ブロック全体
+
 	MN<8>  MN8_block;
 
 	int IdxMaxX = BmpWidth /MVBLOCKH + (BmpWidth %MVBLOCKW==0?0:1);
 	int IdxMaxY = BmpHeight/MVBLOCKH + (BmpHeight%MVBLOCKH==0?0:1);
 
-	//許容移動点の設定
 	int    AllowMovePts;
 	int    AllowMaskPts;
 	double Progress;
@@ -300,7 +232,6 @@ bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 	}
 
 
-	//平均と標準偏差
 	double   ave_block;
 	nsVector ave_block2;
 	double   s_block;
@@ -326,7 +257,6 @@ bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 					continue;
 				}
 			}
-			//背景抽出済みか
 			bool IsSet = false;
 
 			PixRGB *pixR = pDiffBmp._RGB(x,y);
@@ -339,13 +269,10 @@ bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 			{
 				IsSet = false;
 
-				//MN<8>にセット
 				Inf8.CutOutRectImage(pb1,x,y,x+blkw,y+blkh);
-				//平均
 				MN8_block.SetFormDIBInf(Inf8);
 				ave_block2 = MN8_block.CalcAverage();
 				ave_block  = ave_block2.leng()/sqrt(3.0);
-				//標準偏差
 				s_block2  = MN8_block.CalcStdDev(ave_block2);
 				s_block   = s_block2.leng()/sqrt(3);
 			}
@@ -395,15 +322,12 @@ bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 			{
 				IsMove = false;
 			}
-			//動いたか
 			if(IsMove == true || IsSet == true)
 			{
 				continue;
 			}
-			//標準偏差チェック
 			if(s_block < S_MAX && ave_block < AVE_MAX)
 			{
-				//標準偏差、平均の許容マップ
 				decltype(AllowMap)::iterator iter = AllowMap.find({idxX,idxY});
 				if(iter == AllowMap.end())
 				{
@@ -412,8 +336,6 @@ bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 				}
 				else
 				{
-
-					//チェック
 					std::tuple<int,MN<8>,int>& chk = iter->second;
 					int    num  = std::get<0>(chk);
 					MN<8>& mn   = std::get<1>(chk);
@@ -440,26 +362,22 @@ bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 						}
 					}
 
-					//回数チェック
 					if(IsOk == true)
 					{
 						AllowMap.erase(iter);
 					}
 					else
 					{
-						//チェック情報更新
 						iter->second = {num + 1,MN8_block,same+1};
 						continue;
 					}
 				}
 			}
 
-
-			//画像が決定したブロック
 			if(IsUseMN8 == false)
 			{
 				DeciedBlocks.insert({idxX,idxY});
-				//補完ブロックであれば削除
+
 				decltype(CompBlocks)::iterator iter = CompBlocks.find({idxX,idxY});
 
 				if(iter != CompBlocks.end())
@@ -471,12 +389,10 @@ bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 			{
 				CompBlocks.insert({idxX,idxY});
 			}
-			//画像のピクセルセット
 			for(int by = 0;by < blkh;by++)
 			{
 				for(int bx = 0;bx < blkw;bx++)
 				{
-					//set color
 					PixRGB *pixf = pb1._RGB(x+bx,y+by);
 					PixRGB *pix  = pDiffBmp._RGB(x+bx,y+by);
 
@@ -489,7 +405,7 @@ bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 	}
 	//convert to bitmap
 	pDiffBmp.ConvDibToBitmap();
-	//進捗状況
+
 	int all_pix = IdxMaxX * IdxMaxY;
 	int set_pix = 0;
 
@@ -502,20 +418,19 @@ bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 		for(int idxX=0;idxX < IdxMaxX;idxX++)
 		{
 			int  x = idxX * MVBLOCKH;
-			//ブロック左上の色取得
+
 			PixRGB *pix = pDiffBmp._RGB(x,y);
 
 			RR = pix->R;
 			GR = pix->G;
 			BR = pix->B;
-			//すでに色が設定されているか
+
 			if(RR == RT && GR == GT && BR == BT)
 			{
-				//まだ設定されていない
+				//Not yet set
 			}
 			else
 			{
-				//設定されている
 				set_pix++;
 			}
 		}
@@ -526,7 +441,5 @@ bool TBackGround::ExecuteOneStep(int fr,int& SetBlockNum,int& AllBlockNum)
 
 	return true;
 }
-
-
 //---------------------------------------------------------------------------
 

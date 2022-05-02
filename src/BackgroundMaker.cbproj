@@ -65,7 +65,6 @@
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
         <ILINK_LibraryPath>..\Common\;GoBackground\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <SanitizedProjectName>BackgroundMaker</SanitizedProjectName>
-        <IncludePath>..\Common\;$(IncludePath)</IncludePath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <PackageImports>adortl;appanalytics;bcbie;bcbsmp;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindcompvclsmp;bindcompvclwinx;bindengine;CloudService;CustomIPTransport;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;dsnapxml;FireDAC;FireDACADSDriver;FireDACCommon;FireDACCommonDriver;FireDACCommonODBC;FireDACIBDriver;FireDACMSAccDriver;FireDACMySQLDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee;FmxTeeUI;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;QREPPackage;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;SSGOPackage;svn;Tee;TeeDB;TeeUI;tethering;vcl;vclactnband;vcldb;vcldsnap;vcledge;vclFireDAC;vclie;vclimg;VCLRESTComponents;VclSmp;vcltouch;vclwinx;vclx;xmlrtl;XnsPack;XnsSrchItemEditPack;$(PackageImports)</PackageImports>
@@ -148,6 +147,7 @@
         <Icon_MainIcon>BackgroundMaker_Icon1.ico</Icon_MainIcon>
         <UWP_CppLogo44>BackgroundMaker_Icon.ico</UWP_CppLogo44>
         <UWP_CppLogo150>BackgroundMaker_Icon.ico</UWP_CppLogo150>
+        <VerInfo_Keys>CompanyName=さくら電算(Sakura-Densan);FileDescription=動画から背景を抽出するソフトウェア;FileVersion=0.1.0.1;InternalName=BackgroundMaker;LegalCopyright=さくら電算(Sakura-Densan);LegalTrademarks=さくら電算(Sakura-Densan);OriginalFilename=GoBackground.exe;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=BackgroundMaker;ProductVersion=0.1.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
         <CppCompile Include="Background.cpp">
@@ -191,22 +191,20 @@
             <DependentOn>nsMsgBox.h</DependentOn>
             <BuildOrder>13</BuildOrder>
         </CppCompile>
+        <CppCompile Include="nsSearchDir.cpp">
+            <DependentOn>nsSearchDir.h</DependentOn>
+            <BuildOrder>13</BuildOrder>
+        </CppCompile>
         <CppCompile Include="nsShellApi.cpp">
             <DependentOn>nsShellApi.h</DependentOn>
             <BuildOrder>16</BuildOrder>
         </CppCompile>
+        <CppCompile Include="nsVector.cpp">
+            <DependentOn>nsVector.h</DependentOn>
+            <BuildOrder>13</BuildOrder>
+        </CppCompile>
         <CppCompile Include="TSFileCL.cpp">
             <BuildOrder>16</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="..\Common\nsDebug.cpp">
-            <DependentOn>..\Common\nsDebug.h</DependentOn>
-            <BuildOrder>8</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="..\Common\nsSearchDir.cpp">
-            <BuildOrder>7</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="..\Common\nsVector.cpp">
-            <BuildOrder>8</BuildOrder>
         </CppCompile>
         <FormResources Include="MainFrm.dfm"/>
         <FormResources Include="ImportMovieFrameSettingFrm.dfm"/>
@@ -259,6 +257,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="gdiplus.lib" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
                     <Platform Name="OSX32">
                         <Overwrite>true</Overwrite>
@@ -289,9 +293,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName=".\Win32\Debug\BackgroundMaker.tds" Configuration="Debug" Class="DebugSymbols">
+                <DeployFile LocalName=".\Win32\Release\BackgroundMaker.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>BackgroundMaker.tds</RemoteName>
+                        <RemoteName>BackgroundMaker.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -331,13 +335,13 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgcrtl.dylib" Class="DependencyModule">
-                    <Platform Name="OSX64">
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32c270mt.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32c270mt.dll" Class="DependencyModule">
-                    <Platform Name="Win32">
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgcrtl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX64">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

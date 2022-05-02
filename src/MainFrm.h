@@ -17,7 +17,7 @@
 //---------------------------------------------------------------------------
 class TMainForm : public TForm
 {
-__published:	// IDE で管理されるコンポーネント
+__published:
 	TPanel *DestPanel;
 	TPanel *MainPanel;
 	TPanel *SrcPanel;
@@ -35,6 +35,8 @@ __published:	// IDE で管理されるコンポーネント
 	TButton *QuitBtn;
 	TOpenDialog *OpenDialog;
 	TSaveDialog *SaveDialog;
+	TPanel *Panel1;
+	TLabel *Label4;
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
 	void __fastcall SaveBtnClick(TObject *Sender);
@@ -52,7 +54,7 @@ private:
 public:
 	__fastcall TMainForm(TComponent* Owner);
 public:
-	//進捗表示
+	//Progress display
 	bool DispProgress(double pg);
 };
 //---------------------------------------------------------------------------

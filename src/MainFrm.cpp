@@ -3,8 +3,6 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include "nsDebug.h"
-
 #include <algorithm>
 #include "nsShellApi.h"
 #include "nsMsgBox.h"
@@ -21,25 +19,13 @@ __fastcall TMainForm::TMainForm(TComponent* Owner)
 {
 }
 //-------------------------------------------------------------
-//  機能     ：フォーム表示時
-//
-//  関数定義 ：void __fastcall FormShow(TObject *Sender)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//
-//
-//  改定者   ：
+//event of displaying the form
 //-------------------------------------------------------------
 void __fastcall TMainForm::FormShow(TObject *Sender)
 {
-	//進捗表示初期化
+	//Progress display initialization
 	DispProgress(-1.0);
-	//結果イメージコンポーネント作成
+	//Create result image component
 	DestImage = new TBackGround(DestPanel);
 	DestImage->Parent   = DestPanel;
 	DestImage->Name     = L"DestImage";
@@ -83,19 +69,7 @@ void __fastcall TMainForm::FormClose(TObject *Sender, TCloseAction &Action)
 	dir.DeleteDirectory(TempFolderPath.c_str());
 }
 //-------------------------------------------------------------
-//  機能     ：フォームを閉じる前
-//
-//  関数定義 ：void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//
-//
-//  改定者   ：
+//event of before form close
 //-------------------------------------------------------------
 void __fastcall TMainForm::FormCloseQuery(TObject *Sender, bool &CanClose)
 {
@@ -107,19 +81,7 @@ void __fastcall TMainForm::FormCloseQuery(TObject *Sender, bool &CanClose)
 }
 
 //-------------------------------------------------------------
-//  機能     ：実行ボタン
-//
-//  関数定義 ：void __fastcall SaveBtnClick(TObject *Sender)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//
-//
-//  改定者   ：
+//execute button
 //-------------------------------------------------------------
 void __fastcall TMainForm::ExecuteBtnClick(TObject *Sender)
 {
@@ -133,29 +95,23 @@ void __fastcall TMainForm::ExecuteBtnClick(TObject *Sender)
 		nsLib::ErrMsgBox(Handle, L"Read Movie File has not been executed.");
 		return;
 	}
-	//フレームを巻き戻す
 	DestImage->RewindFrame();
-	//停止フラグ
 	IsBackgroundStop = false;
 	//complete flag
 	bool isComp = false;
 
 	for(int fr=1;DestImage->CheckFrameNumber(fr) == true;fr++)
 	{
-		//停止フラグチェック
 		if(IsBackgroundStop == true)
 		{
 			break;
 		}
-		//フレーム番号表示
 		FrameLbl->Caption = (fr);
-		//現在のフレームを表示
+
 		SrcImage->Picture->Graphic = DestImage->GetFrame(fr).GetBitmap();
 
-		//背景抽出処理を１ステップ進める
 		DestImage->ExecuteOneStep(fr,SetBlockNum,AllBlockNum);
 
-		//進捗表示
 		double pg = (100.0f * SetBlockNum) / AllBlockNum;
 
 		if(SetBlockNum < AllBlockNum)
@@ -168,13 +124,10 @@ void __fastcall TMainForm::ExecuteBtnClick(TObject *Sender)
 			isComp = true;
 			break;
 		}
-		//作成中の背景を得る
 		DestImage->GetBackgroundImage(BakInf);
 		DestImage->Picture->Graphic = BakInf.GetBitmap();
-		//表示更新
 		Application->ProcessMessages();
 	}
-	//表示更新
 	DestImage->GetBackgroundImage(BakInf);
 	DestImage->Picture->Graphic = BakInf.GetBitmap();
 	Application->ProcessMessages();
@@ -189,7 +142,6 @@ void __fastcall TMainForm::ExecuteBtnClick(TObject *Sender)
 		nsLib::ExcMsgBox(Handle,L"Task of extracting background has been terminated abnormally.");
 
 	}
-
 }
 
 //-------------------------------------------------------------
@@ -226,19 +178,7 @@ void __fastcall TMainForm::SaveBtnClick(TObject *Sender)
 
 }
 //-------------------------------------------------------------
-//  機能     ：進捗表示
-//
-//  関数定義 ：bool DispProgress(double pg)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//
-//
-//  改定者   ：
+//Progress display
 //-------------------------------------------------------------
 bool TMainForm::DispProgress(double pg)
 {
@@ -257,7 +197,7 @@ bool TMainForm::DispProgress(double pg)
 }
 
 //---------------------------------------------------------------------------
-// テストボタン
+// quit button
 //---------------------------------------------------------------------------
 void __fastcall TMainForm::QuitBtnClick(TObject *Sender)
 {

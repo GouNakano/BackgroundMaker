@@ -11,7 +11,7 @@
 //---------------------------------------------------------------------------
 class TImportMovieFrameSettingForm : public TForm
 {
-__published:	// IDE で管理されるコンポーネント
+__published:
 	TLabel *Label2;
 	TEdit *MoviFilePathSText;
 	TLabel *Label1;
@@ -23,8 +23,8 @@ __published:	// IDE で管理されるコンポーネント
 	TButton *CancelButton;
 	TButton *StartButton;
 	void __fastcall StartButtonClick(TObject *Sender);
-private:	// ユーザー宣言
-public:		// ユーザー宣言
+private:
+public:
 	__fastcall TImportMovieFrameSettingForm(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
