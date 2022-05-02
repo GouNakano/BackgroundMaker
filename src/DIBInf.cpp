@@ -7,7 +7,6 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
-//色の定義
 static const PixRGB pxBlack = {  0  ,0  ,0};
 static const PixRGB pxWihte = {255,255,255};
 
@@ -616,7 +615,6 @@ bool DIBInf::White(int th)
 			{
 				unsigned char gray = this->GetGray(x,y);
 
-				//しきい値以上なら白にする
 				if(gray >= th)
 				{
 					this->SetGray(x,y,tbsFull);
@@ -669,7 +667,6 @@ bool DIBInf::White2(DIBInf& BKGInf,int th,int fr)
 
 				double dg = (1.0 * 256 * abs(gray1-gray2))/(gray1+gray2);
 
-				//しきい値以上なら白にする
 				if(dg >= th)
 				{
 					this->SetGray(x,y,tbsFull);
