@@ -12,7 +12,6 @@ protected:
 	double G_data[N][N];
 	double B_data[N][N];
 	bool IsArrayed;
-	int SuperpositionNum;
 protected:
 	bool CreateNBitmapFromBitmap(DIBInf& NewInf,DIBInf& SrcInf)
 	{
@@ -78,7 +77,6 @@ protected:
 	virtual void _copy(const MN<N>& h)
 	{
 		IsArrayed = h.IsArrayed;
-		SuperpositionNum = h.SuperpositionNum;
 		memcpy(mdata,h.mdata,sizeof(mdata));
 
 		memcpy(R_data,h.R_data,sizeof(R_data));
@@ -115,8 +113,6 @@ protected:
 
 		IsArrayed = true;
 
-		SuperpositionNum = 1;
-
 		return true;
 	}
 public:
@@ -127,7 +123,6 @@ public:
 		memset(R_data,0,sizeof(R_data));
 		memset(G_data,0,sizeof(G_data));
 		memset(B_data,0,sizeof(B_data));
-		SuperpositionNum = 0;
 	}
 	MN<N>(const MN<N>& him)
 	{
@@ -161,28 +156,23 @@ public:
 		return true;
 	}
 
-	int GetSuperpositionNumber()
-	{
-		return SuperpositionNum;
-	}
-
 	unsigned char R(int x,int y)
 	{
-		int r = R_data[y][x] / static_cast<double>(SuperpositionNum);
+		int r = R_data[y][x];
 
 		return r;
 	}
 
 	unsigned char G(int x,int y)
 	{
-		int g = G_data[y][x] / static_cast<double>(SuperpositionNum);
+		int g = G_data[y][x];
 
 		return g;
 	}
 
 	unsigned char B(int x,int y)
 	{
-		int b = B_data[y][x] / static_cast<double>(SuperpositionNum);
+		int b = B_data[y][x];
 
 		return b;
 	}
@@ -214,9 +204,6 @@ public:
 				}
 			}
 		}
-
-		SuperpositionNum++;
-
 		return *this;
 	}
 
@@ -235,9 +222,6 @@ public:
 				Res.B_data[r][c] = B_data[r][c] - h.B_data[r][c];
 			}
 		}
-
-		Res.SuperpositionNum = 1;
-
 		return Res;
 	}
 
@@ -298,70 +282,6 @@ public:
 	}
 public:
 
-	virtual bool norm()
-	{
-		double sum   = 0;
-		double coeff = 0;
-
-		for(int r = 0;r < N;r++)
-		{
-			for(int c = 0;c < N;c++)
-			{
-				double v = fabs(mdata[r][c]);
-
-				sum += v*v;
-			}
-		}
-		if(sum < 0.00001)
-		{
-			return true;
-		}
-
-		coeff = 1.0 / sum;
-
-		for(int r = 0;r < N;r++)
-		{
-			for(int c = 0;c < N;c++)
-			{
-				double v = mdata[r][c];
-
-				if(v>= 0.0f)
-				{
-					mdata[r][c] = (coeff * v * v);
-				}
-				else
-				{
-					mdata[r][c] = -(coeff * v * v);
-				}
-
-			}
-		}
-		return true;
-	}
-
-	virtual double GetMatchPoint(MN<N>& inf)
-	{
-		double match_point = 0;
-
-		for(int y=0;y < N;y++)
-		{
-			for(int x=0;x < N;x++)
-			{
-				double v  = mdata[y][x];
-				double iv = inf.mdata[y][x];
-
-				if((v >= 0.0f && iv > 0.0001f) || (v < 0.0f && iv < 0.0001f))
-				{
-					match_point += fabs(v);
-				}
-				else
-				{
-					match_point -= fabs(v);
-				}
-			}
-		}
-		return match_point;
-	}
 
 	virtual bool SetZeroArray()
 	{
@@ -435,8 +355,6 @@ public:
 				B_data[r][c] = pix->B;
 			}
 		}
-		SuperpositionNum = 1;
-
 		return true;
 	}
 public:
@@ -472,7 +390,7 @@ public:
 			return nsVector(0.0,0.0,0.0);
 		}
 
-		nsVector ave = sum / static_cast<double>(ElNum*SuperpositionNum);
+		nsVector ave = sum / static_cast<double>(ElNum);
 
 		return ave;
 	}
@@ -496,7 +414,7 @@ public:
 			}
 		}
 
-		nsVector ave = sum / static_cast<double>(N*N*SuperpositionNum);
+		nsVector ave = sum / static_cast<double>(N*N);
 
 		return ave;
 	}
@@ -513,7 +431,6 @@ public:
 			for(int x=0;x < N;x++)
 			{
 				rgb.set(R_data[y][x],G_data[y][x],B_data[y][x]);
-				rgb /= static_cast<double>(SuperpositionNum);
 
 				if(rgb.leng() < fabs(0.0001f))
 				{
@@ -550,9 +467,6 @@ public:
 			for(int x=0;x < N;x++)
 			{
 				rgb.set(R_data[y][x],G_data[y][x],B_data[y][x]);
-				rgb /= static_cast<double>(SuperpositionNum);
-
-
 				df    = rgb - ave;
 				sum2 += df.comp2();
 			}
@@ -565,37 +479,6 @@ public:
 		return SD;
 	}
 
-	double GetMatchPoint(DIBInf& inf)
-	{
-		double match_point = 0;
-		MN<N>  infN;
-
-
-		infN.SetFormDIBInf(inf);
-
-		double pt = GetMatchPoint(infN);
-
-		return pt;
-	}
-
-	double GetMatchRatio(DIBInf& inf)
-	{
-
-		double match_point = GetMatchPoint(inf);
-
-		double point = 100.0 * match_point;
-
-		return point;
-	}
-
-	double GetMatchRatio(MN<N>& inf)
-	{
-
-		double match_point = GetMatchPoint(inf);
-		double point       = 100.0 * match_point;
-
-		return point;
-	}
 };
 
 #endif
